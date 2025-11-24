@@ -13,7 +13,12 @@ export const ContactForm = () => {
 
     try {
       // email is linked to emailjs acc for operations email, details are on the password database
-      const result = await emailjs.sendForm('service_8ty54mt', 'template_t8t0zc9', form.current!, 'P4WMs7TMx12asCi2G');
+      const result = await emailjs.sendForm(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        form.current!,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+      );
       console.log(result.text);
       setStateMessage("Message sent successfully!");
     } catch (error:any) {

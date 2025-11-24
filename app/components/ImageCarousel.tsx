@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 
 interface ImageCarouselProps {
   images: string[];
@@ -9,9 +10,9 @@ interface ImageCarouselProps {
 const ImageCarousel = ({images}:{images:string[]}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-  };
+  }, [images.length]);
 
   const prevSlide = () => {
     setCurrentIndex((prevIndex) =>
@@ -22,19 +23,22 @@ const ImageCarousel = ({images}:{images:string[]}) => {
   useEffect(() => {
     const interval = setInterval(nextSlide, 3000);
     return () => clearInterval(interval);
-  }, [images.length]);
+  }, [nextSlide]);
 
   return (
     <div className="relative w-full">
       <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
         {images.map((image, index) => (
-          <img
+          <Image
             key={index}
             src={image}
             className={`absolute w-full h-full object-cover transition-opacity duration-700 ease-in-out ${
               index === currentIndex ? "opacity-100" : "opacity-0"
             }`}
             alt={`Slide ${index + 1}`}
+            fill
+            sizes="100vw"
+            priority={index === 0}
           />
         ))}
       </div>

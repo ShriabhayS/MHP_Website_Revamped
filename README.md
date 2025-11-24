@@ -10,14 +10,46 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 Make sure have ESLint Extension if working in vscode, or if using a different IDE, follow this guide (https://eslint.org/docs/latest/use/integrations#editors)
 
-install dependencies via
-`npm install`
+### Installation
+
+1. Clone the repository
+2. Install dependencies via
+```bash
+npm install
+```
+
+3. Copy the environment variables file:
+```bash
+cp .env.example .env.local
+```
+
+4. Update `.env.local` with your EmailJS credentials (get them from https://dashboard.emailjs.com/)
+
+### Development
 
 To run locally run:
 
-`npm run dev`
+```bash
+npm run dev
+```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+### Build
+
+To create a production build:
+
+```bash
+npm run build
+```
+
+### Linting
+
+To run the linter:
+
+```bash
+npm run lint
+```
 
 
 
@@ -53,15 +85,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     </tr>
   </tfoot>
 </table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->

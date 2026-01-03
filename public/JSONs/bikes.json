@@ -41,7 +41,7 @@
     "Bandicoot": {
       "image": "/images/bike_page/bandicoot.jpg",
       "iteration": 1,
-      "max_speed": 77.7,
+      "max_speed": 45,
       "development_start": 2024,
       "development_end": "Current",
       "competitions": [],

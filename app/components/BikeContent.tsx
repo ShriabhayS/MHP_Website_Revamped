@@ -35,7 +35,7 @@ interface BikeContentProps {
                             <p className="text-4xl sm:text-5xl sm:px-0.5 md:text-5xl lg:text-5xl text-center text-green inline-block pt-8">KM/H</p>
     
                         </div>
-                        <p className="text-3xl sm:text-2xl md:text-2xl lg:text-3xl bg-gradient-to-r from-white to-green bg-clip-text text-transparent">MAX SPEED</p>
+                        <p className="text-3xl sm:text-2xl md:text-2xl lg:text-3xl bg-gradient-to-r from-white to-green bg-clip-text text-transparent">{bike === 'Bandicoot' ? 'AVERAGE SPEED' : 'MAX SPEED'}</p>
                     </div>
                     </div>
                     <div className="flex justify-center items-center h-full flex-1">

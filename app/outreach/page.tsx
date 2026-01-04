@@ -1,9 +1,10 @@
 "use client";
 import { useState } from "react";
+import { motion } from "motion/react";
 import Button from "../components/Buttons";
 import PageSection from "../components/PageSection";
 import Image from "next/image";
-import programData from "../../public/JSONs/programs.json"; // Importing the JSON file
+import programData from "../../public/JSONs/programs.json";
 
 export default function Outreach() {
   const [currentProgramIndex, setCurrentProgramIndex] = useState(0);
@@ -200,7 +201,13 @@ export default function Outreach() {
               paddingRight: "10%",
             }}
           >
-            <div className="max-w-screen-xl mx-auto text-center grid lg:col-start-1 lg:row-start-1 lg:col-span-1">
+            <motion.div 
+              className="max-w-screen-xl mx-auto text-center grid lg:col-start-1 lg:row-start-1 lg:col-span-1"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
               <figure className="max-w-screen-md mx-auto">
                 <svg
                   className="h-12 mx-auto mb-3"
@@ -228,9 +235,15 @@ export default function Outreach() {
                   </div>
                 </figcaption>
               </figure>
-            </div>
+            </motion.div>
 
-            <div className="max-w-screen-xl mx-auto text-center grid lg:col-start-2 lg:row-start-2 lg:col-span-1">
+            <motion.div 
+              className="max-w-screen-xl mx-auto text-center grid lg:col-start-2 lg:row-start-2 lg:col-span-1"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               <figure className="max-w-screen-md mx-auto">
                 <svg
                   className="h-12 mx-auto mb-3"
@@ -256,7 +269,7 @@ export default function Outreach() {
                   </div>
                 </figcaption>
               </figure>
-            </div>
+            </motion.div>
           </div>
         </div>
       </PageSection>

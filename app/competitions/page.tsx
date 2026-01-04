@@ -1,4 +1,6 @@
+"use client";
 import React from "react";
+import { motion } from "motion/react";
 import PageSection from "../components/PageSection";
 import ImageCarousel from "../components/ImageCarousel";
 import Image from "next/image";
@@ -54,14 +56,26 @@ export default function Competitions() {
               World Human Powered Speed Challenge
             </h1>
             <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center space-y-3 md:space-y-3 lg:space-y-0 sm:space-x-5 mb-5">
-              <p className="text-center border rounded-3xl border-[#acf601] p-3 sm:mb-0">
+              <motion.p 
+                className="text-center border rounded-3xl border-[#acf601] p-3 sm:mb-0 transition-all hover:bg-green/10 hover:scale-105"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+              >
                 Rider: Kit Kirby | Top Speed: 116.39 kmph | World Rank: 39
                 <sup>th</sup>
-              </p>
-              <p className="text-center border rounded-3xl border-[#acf601] p-3 sm:mb-0">
+              </motion.p>
+              <motion.p 
+                className="text-center border rounded-3xl border-[#acf601] p-3 sm:mb-0 transition-all hover:bg-green/10 hover:scale-105"
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+              >
                 Rider: Alastair Haslam | Top Speed: 116.05 kmph | World Rank: 42
                 <sup>nd</sup>
-              </p>
+              </motion.p>
             </div>
             <h2 className="mt-3 text-center">
               The World Human Powered Speed Challenge, held annually on State

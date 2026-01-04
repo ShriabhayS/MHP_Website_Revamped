@@ -1,16 +1,10 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import { motion } from "motion/react";
 import PageSection from "../components/PageSection";
-import teamData from "../../public/JSONs/teams.json"; // Importing the JSON file
-
-
-type teamMember={
-  name: string;
-  role: string;
-  department: string;
-  image: string;
-}
+import teamData from "../../public/JSONs/teams.json";
+import { TeamMember, TeamData } from "../types/team";
 
 export default function TeamPage() {
   const [currentTeamIndex, setCurrentTeamIndex] = useState(0);
@@ -66,7 +60,7 @@ export default function TeamPage() {
 
 
 
-  const getLeadLayoutClasses = (teamLeads:teamMember[], teamName:string) => {
+  const getLeadLayoutClasses = (teamLeads: TeamMember[], teamName: string) => {
     const isSpecialTeam = teamName === "Management Team" || teamName === "Auxiliary";
     
     if (teamLeads.length === 2 || isSpecialTeam) {
@@ -189,50 +183,62 @@ export default function TeamPage() {
             </h2>
             <div className={`${getLeadLayoutClasses(currentTeam.Team_Leads, currentTeam.name)} px-8 mb-12`}>
               {currentTeam.Team_Leads?.map((lead, index) => (
-                <div
+                <motion.div
                   key={index}
-                  className={`bg-gray-900 p-4 rounded-lg text-center ${
+                  className={`bg-gray-900 p-4 rounded-lg text-center transition-all duration-300 hover:bg-gray-800 hover:scale-105 ${
                     currentTeam.Team_Leads.length === 3 && index === 2
                       ? "lg:col-start-1 lg:col-end-3"
                       : currentTeam.name === "Management Team" ? "lg:col-start-1 lg:col-end-3" : ""
                   }`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(172, 246, 1, 0.2)" }}
                 >
-                  <Image
-                    src={lead.image} // Load team lead's image
-                    alt={lead.name}
-                    width={200}
-                    height={200}
-                    className="mx-auto rounded-md object-cover w-[220px] h-[150px]"
-                  />
+                  <div className="relative overflow-hidden rounded-md">
+                    <Image
+                      src={lead.image}
+                      alt={lead.name}
+                      width={200}
+                      height={200}
+                      className="mx-auto rounded-md object-cover w-[220px] h-[150px] transition-transform duration-300 hover:scale-110"
+                    />
+                  </div>
                   <h4 className="text-xl font-bold mt-4 text-green">
                     {lead.name}
                   </h4>
                   <p>{lead.role}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
             {/* Team Members Section */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 px-8">
               {currentTeam.members?.map((member, index) => (
-                <div
+                <motion.div
                   key={index}
-                  className={`bg-gray-900  rounded-lg text-center ${getLastRowClasses(
+                  className={`bg-gray-900 rounded-lg text-center p-4 transition-all duration-300 hover:bg-gray-800 hover:scale-105 ${getLastRowClasses(
                     currentTeam.members,
                     index
                   )}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                  whileHover={{ scale: 1.05, boxShadow: "0 0 15px rgba(172, 246, 1, 0.15)" }}
                 >
-                  <Image
-                    src={member.image} // Load team member's image
-                    alt={member.name}
-                    width={200}
-                    height={200}
-                    className="mx-auto rounded-md object-cover w-[220px] h-[150px]"
-                  />
+                  <div className="relative overflow-hidden rounded-md">
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      width={200}
+                      height={200}
+                      className="mx-auto rounded-md object-cover w-[220px] h-[150px] transition-transform duration-300 hover:scale-110"
+                    />
+                  </div>
                   <h4 className="text-lg font-bold mt-4 text-green">
                     {member.name}
                   </h4>
                   <p>{member.role}</p>
-                </div>
+                </motion.div>
               ))}
             </div>{" "}
           </div>

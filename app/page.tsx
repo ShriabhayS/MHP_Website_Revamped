@@ -1,9 +1,17 @@
+import { Metadata } from "next";
 import PageSection from "./components/PageSection";
 import Image from "next/image";
 import ImageCarousel from "./components/ImageCarousel";
 import SponsorshipCarousel from "./components/SponsorCarousel";
 import sponsorData from "../public/JSONs/sponsors.json";
 import Button from "./components/Buttons";
+import ValuesSection from "./components/ValuesSection";
+import ParallaxSection from "./components/ParallaxSection";
+
+export const metadata: Metadata = {
+  title: "Home",
+  description: "Monash Human Power - Student-led engineering team designing and racing cutting-edge human-powered vehicles at Monash University.",
+};
 
 export default function Page() {
   const images = [
@@ -54,15 +62,16 @@ export default function Page() {
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
+            <ParallaxSection speed={0.2}>
               <Image
                 src="/images/home_page/v3.png"
                 className="flex-grow h-full w-full object-scale-down"
-                alt="Image of v3"
+                alt="Monash Human Power V3 bike"
                 width={1316}
                 height={426}
+                priority
               />
-            </div>
+            </ParallaxSection>
             <div className="text-center sm:text-right">
               <h2 className=" font-Aldrich text-center sm:text-right  underline decoration-green decoration-4">
                 Our Story
@@ -124,21 +133,7 @@ export default function Page() {
               Our Values
             </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
-              {values.map((value, idx) => (
-                <div
-                  key={idx}
-                  className="flex flex-col justify-start items-center space-y-3 md:space-y-3 lg:space-y-0 sm:space-x-5 mb-5 h-full"
-                >
-                  <h2 className="text-l font-semibold  text-wrap text-center p-3 sm:mb-0   md:text-xl">
-                    {value.name}
-                  </h2>
-                  <p className="my-4 max-w-prose text-center">
-                    {value.description}
-                  </p>
-                </div>
-              ))}
-            </div>
+            <ValuesSection values={values} />
           </div>
         </PageSection>
 

@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "motion/react";
 
 interface ImageCarouselProps {
   images: string[];
@@ -8,35 +9,55 @@ interface ImageCarouselProps {
 
 const ImageCarousel = ({images}:{images:string[]}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-  };
+  }, [images.length]);
 
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? images.length - 1 : prevIndex - 1
     );
-  };
+  }, []);
 
   useEffect(() => {
-    const interval = setInterval(nextSlide, 3000);
-    return () => clearInterval(interval);
-  }, [images.length]);
+    if (!isPaused) {
+      const interval = setInterval(nextSlide, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [isPaused, nextSlide]);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowLeft") prevSlide();
+    if (e.key === "ArrowRight") nextSlide();
+    if (e.key === " ") {
+      e.preventDefault();
+      setIsPaused(!isPaused);
+    }
+  };
 
   return (
-    <div className="relative w-full">
+    <div 
+      className="relative w-full"
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="region"
+      aria-label="Image carousel"
+    >
       <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
-        {images.map((image, index) => (
-          <img
-            key={index}
-            src={image}
-            className={`absolute w-full h-full object-cover transition-opacity duration-700 ease-in-out ${
-              index === currentIndex ? "opacity-100" : "opacity-0"
-            }`}
-            alt={`Slide ${index + 1}`}
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={currentIndex}
+            src={images[currentIndex]}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ duration: 0.5 }}
+            className="absolute w-full h-full object-cover"
+            alt={`Slide ${currentIndex + 1} of ${images.length}`}
           />
-        ))}
+        </AnimatePresence>
       </div>
 
       <div className="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3">
@@ -58,8 +79,11 @@ const ImageCarousel = ({images}:{images:string[]}) => {
 
       <button
         type="button"
-        className="absolute top-1/2 left-5 z-30 flex items-center justify-center w-12 h-12 -translate-y-1/2 cursor-pointer group focus:outline-none bg-black/30 hover:bg-black/50 rounded-full"
+        className="absolute top-1/2 left-5 z-30 flex items-center justify-center w-12 h-12 -translate-y-1/2 cursor-pointer group focus:outline-none focus:ring-2 focus:ring-green bg-black/30 hover:bg-black/50 rounded-full transition-all"
         onClick={prevSlide}
+        aria-label="Previous slide"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
       >
         <svg
           className="w-6 h-6 text-white"
@@ -79,8 +103,11 @@ const ImageCarousel = ({images}:{images:string[]}) => {
 
       <button
         type="button"
-        className="absolute top-1/2 right-5 z-30 flex items-center justify-center w-12 h-12 -translate-y-1/2 cursor-pointer group focus:outline-none bg-black/30 hover:bg-black/50 rounded-full"
+        className="absolute top-1/2 right-5 z-30 flex items-center justify-center w-12 h-12 -translate-y-1/2 cursor-pointer group focus:outline-none focus:ring-2 focus:ring-green bg-black/30 hover:bg-black/50 rounded-full transition-all"
         onClick={nextSlide}
+        aria-label="Next slide"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
       >
         <svg
           className="w-6 h-6 text-white"

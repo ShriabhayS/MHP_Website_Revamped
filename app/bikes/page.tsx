@@ -1,12 +1,11 @@
 "use client"
 
 import React, { useState, useEffect, useRef} from 'react'
-
+import { Metadata } from "next";
 import PageSection from "../components/PageSection";
 import BikeSection from '../components/BikeSection';
 import SamePageNavBar from '../components/SamePageNavigation/SamePageNavBar';
-
-import bikeData from "../../public/JSONs/bikes.json";  // Importing the JSON file
+import bikeData from "../../public/JSONs/bikes.json";
 
 /**
  * @documentation
@@ -55,9 +54,6 @@ export default function Page() {
 
     return (
     <>
-        <title>
-            Bikes | MHP
-        </title>
         <div className="scroll-smooth">
             <PageSection colourWay="dark">
                 <section className="relative text-center">

@@ -1,4 +1,5 @@
 "use client";
+import { motion } from "motion/react";
 import { ApplicationCardInfo } from "../components/ApplicationCarousel/ApplicationCard";
 import ApplicationCarousel from "../components/ApplicationCarousel/ApplicationCarousel";
 import PageSection from "../components/PageSection";
@@ -215,15 +216,28 @@ export default function Join() {
 
       {/* Cover Image */}
       <PageSection colourWay="dark">
-        <h1 className="text-center text-5xl">Join Us</h1>
-        <Image
-          src="/images/join_page/join_main.jpg"
-          width="5184"
-          height="2309"
-          objectFit="cover"
-          alt="Trike Group photo"
-          layout="responsive"
-        />
+        <motion.h1 
+          className="text-center text-5xl"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          Join Us
+        </motion.h1>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <Image
+            src="/images/join_page/join_main.jpg"
+            width="5184"
+            height="2309"
+            objectFit="cover"
+            alt="Trike Group photo"
+            layout="responsive"
+          />
+        </motion.div>
       </PageSection>
 
       {/* Join Us section */}
